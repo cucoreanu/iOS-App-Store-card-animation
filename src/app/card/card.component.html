@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div class="card"
+       #coordinatesSpy="cardCoordinatesSpy" #divElement
+       [@cardToggle]="isExpanded ? 'expanded' : 'collapsed'"
+       (click)="toggleCard(divElement, coordinatesSpy)"
+       appCardCoordinatesSpy>
+    <div class="card-cover">
+      <ng-content select="card-cover"></ng-content>
+    </div>
+    <div *ngIf="isExpanded" class="card-story">
+      <ng-content select="card-story"></ng-content>
+    </div>
+  </div>
+</div>
