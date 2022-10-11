@@ -1,5 +1,5 @@
 import { Component, Directive } from '@angular/core';
-import { animate, sequence, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, group, keyframes, query, sequence, state, style, transition, trigger } from '@angular/animations';
 import { CardCoordinatesSpyDirective } from './card-coordinates-spy.directive';
 
 export const cardHeight = '250px';
@@ -23,10 +23,43 @@ export const cardHeight = '250px';
       ),
       transition('collapsed <=> expanded', [
         sequence([
-          animate('500ms cubic-bezier(0.83, 0, 0.17, 1)')
+          group([
+              query('*', animateChild()),
+              animate('500ms cubic-bezier(0.83, 0, 0.17, 1)')
+            ]
+          )
         ])
+      ]),
+    ]),
+    trigger('cardCover', [
+      state('collapsed',
+        style({
+          borderRadius: '*',
+          paddingTop: 0,
+        })
+      ),
+      state('expanded',
+        style({
+          borderRadius: 0,
+          paddingTop: '20px'
+        })
+      ),
+      transition('collapsed => expanded', [
+        animate('600ms ease-in-out', keyframes([
+          style({ padding: '0', offset: .2 }),
+          style({ padding: '2px', paddingTop: 0, offset: 0.5 }),
+          style({ padding: '0', borderRadius: 0, paddingTop: '20px', offset: 1 })
+        ]))
+      ]),
+      transition('expanded => collapsed', [
+        animate('600ms ease-in-out', keyframes([
+          style({ padding: '0', borderRadius: 0, paddingTop: '20px', offset: .2 }),
+          style({ padding: '2px', paddingTop: 0, offset: 0.5 }),
+          style({ padding: '0', offset: 1 })
+        ]))
       ])
     ])
+
   ],
   styles: [`
     .card-container {
@@ -59,6 +92,7 @@ export const cardHeight = '250px';
         .card-cover {
           border-radius: 18px;
           position: relative;
+          overflow: hidden;
         }
       }
     }

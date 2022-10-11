@@ -7,7 +7,8 @@ import { Component } from '@angular/core';
       <app-card>
         <card-cover>
           <div class="content-container" appCardCoverHeight>
-            <div class="gradient-1 cover-background"></div>
+            <img class="cover-background" src="./assets/images/wallpaper.jpeg">
+            <div class="category">Category goes here</div>
             <h1>Lorem ipsum dolor sit amet, consectetur adipiscing</h1>
           </div>
         </card-cover>
@@ -29,6 +30,9 @@ import { Component } from '@angular/core';
           top: 0;
           left: 0;
           position: absolute;
+          width: 100%;
+          object-fit: cover;
+          z-index: 0;
         }
 
         .gradient-1 {
@@ -37,17 +41,13 @@ import { Component } from '@angular/core';
           background: linear-gradient(247.99deg, #FF8A8A 2.6%, #403DFF 96.62%);
         }
 
-        card-cover {
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-end;
-        }
-
         .content-container {
           display: flex;
-          align-items: flex-end;
+          flex-direction: column;
+          align-items: start;
           padding: 24px;
           box-sizing: border-box;
+          justify-content: space-between;
         }
 
         h1 {
@@ -59,6 +59,19 @@ import { Component } from '@angular/core';
           font-weight: 700;
           font-size: 19px;
           line-height: 110.2%;
+        }
+
+        .category {
+          color: white;
+          position: relative;
+          left: 0;
+          font-family: 'Noto Sans', sans-serif;
+          font-style: normal;
+          padding-bottom: 7px;
+          font-weight: 400;
+          font-size: 14px;
+          text-transform: uppercase;
+          opacity: .7;
         }
       }
     `

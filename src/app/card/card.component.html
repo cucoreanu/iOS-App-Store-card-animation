@@ -4,7 +4,7 @@
        [@cardToggle]="isExpanded ? 'expanded' : 'collapsed'"
        appCardCoordinatesSpy
        class="card card-appearance card-initial-position card-transitions">
-    <div class="card-cover">
+    <div class="card-cover" [@cardCover]="isExpanded ? 'expanded' : 'collapsed'">
       <ng-content select="card-cover"></ng-content>
     </div>
     <div *ngIf="isExpanded" class="card-story">
