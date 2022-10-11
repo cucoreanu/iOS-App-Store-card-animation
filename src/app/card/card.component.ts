@@ -2,7 +2,7 @@ import { Component, Directive } from '@angular/core';
 import { animate, sequence, state, style, transition, trigger } from '@angular/animations';
 import { CardCoordinatesSpyDirective } from './card-coordinates-spy.directive';
 
-export const cardHeight = 250;
+export const cardHeight = '250px';
 
 @Component({
   selector: 'app-card',
@@ -32,28 +32,33 @@ export const cardHeight = 250;
     .card-container {
 
       .card {
-        transition: top 400ms ease-in-out,
-                    left 700ms cubic-bezier(0.83, 0, 0.17, 1),
-                    width 700ms cubic-bezier(0.83, 0, 0.17, 1);
-        position: relative;
-        cursor: pointer;
-        border-radius: 18px;
-        height: 250px;
+        &.card-transitions {
+          transition: top 400ms ease-in-out,
+          left 700ms cubic-bezier(0.83, 0, 0.17, 1),
+          width 700ms cubic-bezier(0.83, 0, 0.17, 1);
+        }
 
-        // card initial position
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100%;
+        &.card-appearance {
+          position: relative;
+          cursor: pointer;
+          border-radius: 18px;
+          height: ${cardHeight};
+          overflow: hidden;
+          background: white;
+          filter: drop-shadow(0px 22px 29px rgba(0, 0, 0, 0.05));
+        }
 
-        background: white;
-        filter: drop-shadow(0px 22px 29px rgba(0, 0, 0, 0.05));
-        overflow: hidden;
+        &.card-initial-position {
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+        }
 
         .card-cover {
-          padding: 25px;
           border-radius: 18px;
+          position: relative;
         }
       }
     }
@@ -61,7 +66,6 @@ export const cardHeight = 250;
 })
 export class CardComponent {
   isExpanded = false;
-  cardHeight = cardHeight;
 
   toggleCard(div: HTMLDivElement, coordinatesSpy: CardCoordinatesSpyDirective) {
     if (this.isExpanded) {
@@ -82,4 +86,14 @@ export class CardComponent {
       this.isExpanded = true;
     }
   }
+}
+
+@Directive({
+  selector: '[appCardCoverHeight]',
+  host: {
+    style: `min-height: ${cardHeight}`
+  }
+})
+export class CardCoverHeightDirective {
+
 }

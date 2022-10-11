@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CardComponent } from './card/card.component';
+import { CardComponent, CardCoverHeightDirective } from './card/card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardCoordinatesSpyDirective } from './card/card-coordinates-spy.directive';
 
@@ -10,7 +10,8 @@ import { CardCoordinatesSpyDirective } from './card/card-coordinates-spy.directi
   declarations: [
     AppComponent,
     CardComponent,
-    CardCoordinatesSpyDirective
+    CardCoordinatesSpyDirective,
+    CardCoverHeightDirective
   ],
   imports: [
     BrowserModule,

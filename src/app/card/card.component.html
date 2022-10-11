@@ -1,9 +1,9 @@
 <div class="card-container">
-  <div class="card"
-       #coordinatesSpy="cardCoordinatesSpy" #divElement
+  <div #coordinatesSpy="cardCoordinatesSpy"
+       #divElement (click)="toggleCard(divElement, coordinatesSpy)"
        [@cardToggle]="isExpanded ? 'expanded' : 'collapsed'"
-       (click)="toggleCard(divElement, coordinatesSpy)"
-       appCardCoordinatesSpy>
+       appCardCoordinatesSpy
+       class="card card-appearance card-initial-position card-transitions">
     <div class="card-cover">
       <ng-content select="card-cover"></ng-content>
     </div>
