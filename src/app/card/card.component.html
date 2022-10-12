@@ -7,7 +7,7 @@
     <div class="card-cover" [@cardCover]="isExpanded ? 'expanded' : 'collapsed'">
       <ng-content select="card-cover"></ng-content>
     </div>
-    <div *ngIf="isExpanded" class="card-story">
+    <div *ngIf="isExpanded" class="card-story" @cardContent>
       <ng-content select="card-story"></ng-content>
     </div>
   </div>
