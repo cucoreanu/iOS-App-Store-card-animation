@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-export interface OpenCardProperties {
+export interface ExpandedCardProperties {
   offsetLeft: number;
   offsetTop: number;
   containerWidth?: number;
@@ -13,14 +13,14 @@ export interface OpenCardProperties {
 })
 export class CardCoordinatesSpyDirective {
 
-  constructor(private elementRef: ElementRef<HTMLElement>,
-              @Inject(DOCUMENT) private document: Document) {
+  constructor(private readonly elementRef: ElementRef<HTMLElement>,
+              @Inject(DOCUMENT) private readonly document: Document) {
   }
 
   /* *
-  *  Gets the properties of a card for it's open state.
+  *  Gets the properties of a card for it's expanded state.
   * */
-  getOpenCardProperties(): OpenCardProperties {
+  getExpandedCardProperties(): ExpandedCardProperties {
 
     const containerWidth = document.getElementsByClassName('container').item(0)?.clientWidth
     const nativeElement = this.elementRef.nativeElement;

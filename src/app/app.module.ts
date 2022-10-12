@@ -17,7 +17,6 @@ import { CardCoordinatesSpyDirective } from './card/card-coordinates-spy.directi
     BrowserModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

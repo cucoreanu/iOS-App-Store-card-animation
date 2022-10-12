@@ -1,6 +1,7 @@
 import { Component, Directive } from '@angular/core';
 import { CardCoordinatesSpyDirective } from './card-coordinates-spy.directive';
-import { cardContentTrigger, cardCoverTrigger, cardToggleTrigger } from './triggers';
+import { cardContentTrigger, cardCoverTrigger, cardToggleTrigger } from './card.animations';
+import { CardService } from './card.service';
 
 export const cardHeight = '250px';
 
@@ -12,29 +13,42 @@ export const cardHeight = '250px';
     cardCoverTrigger,
     cardContentTrigger
   ],
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
+  styles: [
+    `
+      .card-appearance {
+        height: ${cardHeight};
+      }
+    `
+  ]
 })
 export class CardComponent {
   isExpanded = false;
 
+  constructor(private readonly cardService: CardService) {
+  }
+
   toggleCard(div: HTMLDivElement, coordinatesSpy: CardCoordinatesSpyDirective) {
     if (this.isExpanded) {
-      Object.assign(div.style, {
-        width: '',
-        top: '0',
-        left: '0'
-      });
-      this.isExpanded = false;
+      this.collapseCard(div);
     } else {
-      const openCardProperties = coordinatesSpy.getOpenCardProperties();
-
-      Object.assign(div.style, {
-        width: `${openCardProperties.containerWidth}px`,
-        top: `${openCardProperties.offsetTop}px`,
-        left: `${openCardProperties.offsetLeft}px`
-      });
-      this.isExpanded = true;
+      this.expandCard(coordinatesSpy, div);
     }
+  }
+
+  private expandCard(coordinatesSpy: CardCoordinatesSpyDirective, div: HTMLDivElement) {
+    const openCardProperties = coordinatesSpy.getExpandedCardProperties();
+    const expandedCardStyles = this.cardService.convertOffsetValuesToStyleDeclarations(openCardProperties);
+
+    Object.assign(div.style, {
+      ...expandedCardStyles
+    });
+    this.isExpanded = true;
+  }
+
+  private collapseCard(div: HTMLDivElement) {
+    Object.assign(div.style, this.cardService.getCardCollapsedStyles());
+    this.isExpanded = false;
   }
 }
 
